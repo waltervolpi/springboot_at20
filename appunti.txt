@@ -1,0 +1,24 @@
+#creare utente in MongoDB
+mongosh
+use admin
+db.createUser(
+  {
+    user: "waltervolpi",
+    pwd: "volpi",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)
+#BREW MONGO
+brew services start mongodb-community
+
+#parte l'applicazione
+./gradlew bootRun
+
+#crea il JAR da mettere in Docker
+./gradlew build
+
+
+docker image rm springboot_demo
+docker image build -f DockerFile -t springboot_demo .
+docker image ls
+docker run springboot_demo
